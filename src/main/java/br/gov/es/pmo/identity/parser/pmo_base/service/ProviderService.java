@@ -42,8 +42,8 @@ public class ProviderService {
     private OAuth2AuthenticationToken getToken() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth instanceof OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-            return oAuth2AuthenticationToken;
+        if (auth instanceof OAuth2AuthenticationToken) {
+            return (OAuth2AuthenticationToken) auth;
         }
 
         throw new IllegalStateException("Usuario não autenticado");

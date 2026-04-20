@@ -4,35 +4,22 @@ plugins {
 }
 
 group = 'com.github.sep-es-br'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 
 repositories {
 	mavenCentral()
 }
 
-ext {
-    // Versão compatível com Spring Boot 3.2.x
-    set('springCloudVersion', "2023.0.0") 
-}
-
-
 dependencies {
-    api platform('org.springframework.boot:spring-boot-dependencies:3.2.4')
+    api platform('org.springframework.boot:spring-boot-dependencies:2.7.18')
     api 'org.springframework.boot:spring-boot-starter-data-rest'
     api 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    api 'org.springframework.boot:spring-boot-starter-security'
+    api 'org.springframework.security:spring-security-oauth2-core'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-dependencyManagement {
-    imports {
-        // Importa as definições de versão do Spring Cloud
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
 }
 
 tasks.named('test') {
