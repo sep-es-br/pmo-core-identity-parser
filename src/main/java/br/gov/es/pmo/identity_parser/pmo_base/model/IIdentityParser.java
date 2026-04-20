@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.gov.es.pmo.identity.parser.pmo_base.model;
+package br.gov.es.pmo.identity_parser.pmo_base.model;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

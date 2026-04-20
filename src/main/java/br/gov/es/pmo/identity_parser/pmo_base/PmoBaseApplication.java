@@ -1,4 +1,4 @@
-package br.gov.es.pmo.identity.parser.pmo_base;
+package br.gov.es.pmo.identity_parser.pmo_base;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
