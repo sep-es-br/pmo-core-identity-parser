@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-br.gov.es.pmo.identity_parser.IdentityParserAutoConfig
+br.gov.es.pmo.identity_parser.pmo_base.config.IdentityParserAutoConfig
