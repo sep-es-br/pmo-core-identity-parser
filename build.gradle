@@ -14,7 +14,6 @@ repositories {
 }
 
 dependencies {
-    api 'org.springframework.boot:spring-boot-starter-data-rest:2.2.12.RELEASE'
     api 'org.springframework.boot:spring-boot-starter-oauth2-client:2.2.12.RELEASE'
     api 'org.springframework.security:spring-security-oauth2-core:5.2.12.RELEASE'
     api 'org.springframework.boot:spring-boot-starter-web:2.2.12.RELEASE'
