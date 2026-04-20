@@ -2,18 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package identity.parser.pmo_base.service;
+package br.gov.es.pmo.identity.parser.pmo_base.service;
 
+import br.gov.es.pmo.identity.parser.pmo_base.model.IIdentityParser;
 import java.util.Map;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
-import identity.parser.pmo_base.model.IIdentityParser;
 
 /**
  *
@@ -81,19 +79,6 @@ public class ProviderService {
         
         return provider;
                     
-    }
-    
-    
-    public <T extends IIdentityParser<?>> T getProvider(Class<T> type) {
-        IIdentityParser<?> provider = getProvider();
-
-        if (!type.isInstance(provider)) {
-            throw new IllegalArgumentException(
-                "Provider atual não é do tipo: " + type.getSimpleName()
-            );
-        }
-
-        return type.cast(provider);
     }
     
     public Object getAttribute(String attr) {
