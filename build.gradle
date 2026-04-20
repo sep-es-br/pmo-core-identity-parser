@@ -6,13 +6,15 @@ plugins {
 group = 'com.github.sep-es-br'
 version = '1.0.0'
 
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-    api platform('org.springframework.cloud:spring-cloud-dependencies:2021.0.9')
-    api platform('org.springframework.boot:spring-boot-dependencies:2.7.18')
+    api platform('org.springframework.boot:spring-boot-dependencies:2.2.12.RELEASE')
     api 'org.springframework.boot:spring-boot-starter-data-rest'
     api 'org.springframework.boot:spring-boot-starter-oauth2-client'
     api 'org.springframework.security:spring-security-oauth2-core'
