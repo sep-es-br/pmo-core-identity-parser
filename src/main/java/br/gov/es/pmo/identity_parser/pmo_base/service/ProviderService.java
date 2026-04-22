@@ -27,16 +27,16 @@ public class ProviderService {
     private final Map<String, IIdentityParser<?>> providers;
     
     private final OAuth2AuthorizedClientService authorizedClientService;
-    
-    private String clientToken;
-    
+    private final ClientCredentialService clientCredentialService;
+        
     public ProviderService(
         final Map<String, IIdentityParser<?>> providers,
-        final OAuth2AuthorizedClientService authorizedClientService
+        final OAuth2AuthorizedClientService authorizedClientService,
+        final ClientCredentialService clientCredentialService
     ){
         this.providers = providers;
         this.authorizedClientService = authorizedClientService;
-         
+        this.clientCredentialService = clientCredentialService;
     }
     
     private OAuth2AuthenticationToken getToken() {
@@ -65,6 +65,10 @@ public class ProviderService {
                 authToken.getName()
         ).getAccessToken().getTokenValue();
     }
+    
+    private String getClientToken() {
+        return clientCredentialService.getClientToken(this.getRegistrationId());
+    }
        
     
     
@@ -82,7 +86,7 @@ public class ProviderService {
     }
     
     public Object getAttribute(String attr) {
-        return getProvider().getAttribute(this.getUser(), getAccessToken() , attr);
+        return getProvider().getAttribute(this.getUser(), getAccessToken(), getClientToken() , attr);
     }
     
     public <T> T getAttribute(String attr, Class<T> type) {
@@ -90,15 +94,15 @@ public class ProviderService {
     }
     
     public Object getId(){
-        return this.getProvider().getId(this.getUser(), getAccessToken());
+        return this.getProvider().getId(this.getUser(), getAccessToken(), getClientToken());
     }
     
     public String getNome() {
-        return this.getProvider().getNome(this.getUser(), getAccessToken());
+        return this.getProvider().getNome(this.getUser(), getAccessToken(), getClientToken());
     }
     
     public String getEmail() {
-        return this.getProvider().getEmail(this.getUser(), getAccessToken());
+        return this.getProvider().getEmail(this.getUser(), getAccessToken(), getClientToken());
     }
     
     

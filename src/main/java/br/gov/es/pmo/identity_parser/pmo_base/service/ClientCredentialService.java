@@ -5,10 +5,14 @@
 package br.gov.es.pmo.identity_parser.pmo_base.service;
 
 import br.gov.es.pmo.identity_parser.pmo_base.properties.ClientCredentialProperties;
+import java.util.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,21 +26,35 @@ public class ClientCredentialService {
     
     private final OAuth2AuthorizedClientManager authorizedClientManager;
     
+    private final ClientRegistrationRepository clientRegistrationRepository;
+    
     public ClientCredentialService(
-        final OAuth2AuthorizedClientManager authorizedClientManager
+        final OAuth2AuthorizedClientManager authorizedClientManager,
+        final ClientRegistrationRepository clientRegistrationRepository
     ){
         this.authorizedClientManager = authorizedClientManager;
+        this.clientRegistrationRepository = clientRegistrationRepository;
     }
     
     public String getClientToken(String registrationId) {
         
-        OAuth2AuthorizeRequest request = OAuth2AuthorizeRequest.withClientRegistrationId(registrationId + SUFIX)
+        final String registrationIdFull = registrationId + SUFIX;
+        
+        
+        
+        ClientRegistration registration = clientRegistrationRepository.findByRegistrationId(registrationIdFull);
+        
+        if(registration == null) return null;
+                
+        OAuth2AuthorizeRequest request = OAuth2AuthorizeRequest.withClientRegistrationId(registrationIdFull)
                                             .principal(new UsernamePasswordAuthenticationToken("System", "N/A"))
                                             .build();
         
-        OAuth2AuthorizedClient client = authorizedClientManager.authorize(request);
         
-        return client.getAccessToken().getTokenValue();
+        return Optional.ofNullable(authorizedClientManager.authorize(request))
+                        .map(OAuth2AuthorizedClient::getAccessToken)
+                        .map(OAuth2AccessToken::getTokenValue)
+                        .orElseThrow(() -> new IllegalStateException("Erro ao requisitar o client token da API para: " + registrationIdFull));
                 
     }
     

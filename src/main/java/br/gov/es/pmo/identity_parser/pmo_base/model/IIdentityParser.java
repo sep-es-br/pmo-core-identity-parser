@@ -20,38 +20,42 @@ public interface IIdentityParser<ID> {
      * sub, cpf, o que a api usar pra identificar
      * 
      * @param user usuario retornado pelo user-info
-     * @param token token de autenticação
+     * @param authToken token de autenticação
+     * @param clientToken token de Client Credential
      * @return id/sub do usuário
      */
-    public ID getId(OAuth2User user, String token);
+    public ID getId(OAuth2User user, String authToken, String clientToken);
     
     /**
      * retorna o nome do usuario
      * 
      * @param user usuario retornado pelo user-info
-     * @param token token de autenticação
+     * @param authToken token de autenticação
+     * @param clientToken token de Client Credential
      * @return nome do usuário
      */    
-    public String getNome(OAuth2User user, String token);
+    public String getNome(OAuth2User user, String authToken, String clientToken);
     
     /**
      * retorna o email do usuario
      * 
      * @param user usuario retornado pelo user-info
-     * @param token token de autenticação
+     * @param authToken token de autenticação
+     * @param clientToken token de Client Credential
      * @return nome do usuário
      */    
-    public String getEmail(OAuth2User user, String token);
+    public String getEmail(OAuth2User user, String authToken, String clientToken);
     
     /**
      * retorna uma propriedade especifica do usuario
      * 
      * @param user usuario retornado pelo user-info
-     * @param token token de autenticação
+     * @param authToken token de autenticação
+     * @param clientToken token de Client Credential
      * @param attr atributo que deseja recuperar do usuario
      * @return 
      */    
-    default Object getAttribute(OAuth2User user, String token, String attr) {
+    default Object getAttribute(OAuth2User user, String authToken, String clientToken, String attr) {
         return user.getAttribute(attr);
     }
 
